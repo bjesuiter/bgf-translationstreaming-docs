@@ -1,9 +1,10 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
 
 @theme {
-  --color-slate-950: #020617;
+	--color-slate-950: #020617;
 }
 
 :root {
-  color-scheme: light dark;
+	color-scheme: light dark;
 }
