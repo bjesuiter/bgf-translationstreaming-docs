@@ -4,12 +4,14 @@ Guidelines for AI coding agents working in this repository.
 
 ## Project Overview
 
-**Astro Starlight** documentation site for BGF Translation Streaming.
+**Astro Starlight** documentation site for BGF Translation Streaming (Ü-Streaming).
 
 - **Framework**: Astro 5.x with Starlight 0.37.x
 - **Language**: TypeScript (strict mode)
 - **Package Manager**: Bun
 - **Content Format**: Markdown (.md) and MDX (.mdx)
+- **Languages**: German (primary), English (secondary)
+- **i18n**: Both languages use URL prefixes (`/de/...`, `/en/...`)
 
 ## Commands
 
@@ -40,8 +42,14 @@ bun test <path/to/test.ts>  # Run single test
 ├── src/
 │   ├── assets/              # Images (processed by Astro)
 │   ├── content/docs/        # Documentation pages
-│   │   ├── guides/          # How-to guides
-│   │   └── reference/       # Reference docs
+│   │   ├── de/              # German content (/de/...)
+│   │   │   ├── guides/      # General guides
+│   │   │   ├── advanced/    # Advanced guides
+│   │   │   └── 2025-swo/    # Live conference info
+│   │   └── en/              # English content (/en/...)
+│   │       ├── guides/      # General guides
+│   │       ├── advanced/    # Advanced guides
+│   │       └── 2025-swo/    # Live conference info
 │   └── content.config.ts    # Content collection schema
 ├── astro.config.mjs         # Astro + Starlight config
 └── tsconfig.json            # TypeScript config (strict)
