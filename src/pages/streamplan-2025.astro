@@ -30,6 +30,59 @@ const dates = [
 	'2025-12-31',
 	'2026-01-01',
 ];
+
+// Schedule data for each language and date
+type Location = 'von IGR für IGR' | 'von Aula für IGR' | 'von IGR für Aula';
+
+interface ScheduleItem {
+	location: Location;
+	note?: string;
+}
+
+interface ScheduleData {
+	[date: string]: {
+		morning?: ScheduleItem[];
+		afternoon?: ScheduleItem[];
+		evening?: ScheduleItem[];
+	};
+}
+
+const schedules: Record<string, ScheduleData> = {
+	'S01 - English': dates.reduce(
+		(acc, date) => ({
+			...acc,
+			[date]: {
+				morning: [{ location: 'von IGR für IGR' }],
+				afternoon: [{ location: 'von IGR für IGR' }],
+				evening: [{ location: 'von IGR für IGR' }],
+			},
+		}),
+		{},
+	),
+	'S04 – Farsi / Persisch': {
+		'2025-12-27': {
+			evening: [{ location: 'von IGR für IGR' }],
+		},
+		'2025-12-28': {
+			evening: [{ location: 'von IGR für IGR' }],
+		},
+		'2025-12-29': {
+			afternoon: [{ location: 'von IGR für IGR' }],
+			evening: [{ location: 'von IGR für IGR' }],
+		},
+		'2025-12-30': {
+			afternoon: [{ location: 'von IGR für IGR' }],
+			evening: [{ location: 'von Aula für IGR' }],
+		},
+		'2025-12-31': {
+			afternoon: [{ location: 'von IGR für IGR' }],
+			evening: [
+				{ location: 'von IGR für IGR', note: 'bis 22:45' },
+				{ location: 'von Aula für IGR', note: 'ab 22:45' },
+			],
+		},
+	},
+};
 ---
 
 <Layout title={title}>
@@ -71,20 +124,61 @@ const dates = [
 							</tr>
 						</thead>
 						<tbody>
-							{languages.map((lang, index) => (
-								<tr class={`
-									border-b border-border-primary last:border-b-0
-									${index % 2 === 1 ? 'bg-bg-tertiary' : ''}
-									hover:bg-bg-hover transition-colors
-								`}>
-									<td class="px-4 py-3 font-medium text-text-primary whitespace-nowrap">
-										{lang}
-									</td>
-									<td class="px-4 py-3 text-text-secondary"></td>
-									<td class="px-4 py-3 text-text-secondary"></td>
-									<td class="px-4 py-3 text-text-secondary"></td>
-								</tr>
-							))}
+							{languages.map((lang, index) => {
+								const langSchedule = schedules[lang];
+								const dateSchedule = langSchedule?.[date];
+
+								const getLocationClass = (location: Location): string => {
+									switch (location) {
+										case 'von IGR für IGR':
+											return 'location-igr';
+										case 'von Aula für IGR':
+											return 'location-aula';
+										case 'von IGR für Aula':
+											return 'location-igr-aula';
+									}
+								};
+
+								const renderSchedule = (
+									items: ScheduleItem[] | undefined,
+								) => {
+									if (!items || items.length === 0) return '';
+
+									return items.map((item) => (
+										<p class={item.note ? 'mb-2 last:mb-0' : ''}>
+											<span class={getLocationClass(item.location)}>
+												{item.location}
+											</span>
+											{item.note && (
+												<span class="block text-xs text-text-tertiary">
+													{item.note}
+												</span>
+											)}
+										</p>
+									));
+								};
+
+								return (
+									<tr class={`
+										border-b border-border-primary last:border-b-0
+										${index % 2 === 1 ? 'bg-bg-tertiary' : ''}
+										hover:bg-bg-hover transition-colors
+									`}>
+										<td class="px-4 py-3 font-medium text-text-primary whitespace-nowrap">
+											{lang}
+										</td>
+										<td class="px-4 py-3 text-text-secondary">
+											{renderSchedule(dateSchedule?.morning)}
+										</td>
+										<td class="px-4 py-3 text-text-secondary">
+											{renderSchedule(dateSchedule?.afternoon)}
+										</td>
+										<td class="px-4 py-3 text-text-secondary">
+											{renderSchedule(dateSchedule?.evening)}
+										</td>
+									</tr>
+								);
+							})}
 						</tbody>
 					</table>
 				</div>

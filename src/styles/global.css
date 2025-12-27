@@ -19,6 +19,7 @@
 	/* Text colors - high contrast for accessibility */
 	--color-text-primary: var(--color-slate-900);
 	--color-text-secondary: var(--color-slate-800);
+	--color-text-tertiary: var(--color-slate-500);
 	--color-text-muted: var(--color-slate-600);
 
 	/* Border colors */
@@ -36,6 +37,11 @@
 	--color-today-bg: var(--color-amber-50);
 	--color-today-border: var(--color-amber-400);
 	--color-today-text: var(--color-amber-800);
+
+	/* Location colors */
+	--color-location-igr: var(--color-slate-400);
+	--color-location-aula: var(--color-green-600);
+	--color-location-igr-aula: var(--color-purple-600);
 
 	/* Keep slate-950 for dark mode */
 	--color-slate-950: #020617;
@@ -71,6 +77,7 @@
 	/* Text colors - improved contrast for dark mode */
 	--color-text-primary: var(--color-slate-100);
 	--color-text-secondary: var(--color-slate-300);
+	--color-text-tertiary: var(--color-slate-500);
 	--color-text-muted: var(--color-slate-400);
 
 	/* Border colors */
@@ -85,4 +92,26 @@
 	--color-today-bg: color-mix(in srgb, var(--color-amber-900) 30%, transparent);
 	--color-today-border: var(--color-amber-500);
 	--color-today-text: var(--color-amber-300);
+
+	/* Location colors - dark mode */
+	--color-location-igr: var(--color-slate-400);
+	--color-location-aula: var(--color-green-400);
+	--color-location-igr-aula: var(--color-purple-400);
+}
+
+/* ============================================
+   LOCATION STYLES
+   ============================================ */
+.location-igr {
+	color: var(--color-location-igr);
+}
+
+.location-aula {
+	color: var(--color-location-aula);
+	font-weight: bold;
+}
+
+.location-igr-aula {
+	color: var(--color-location-igr-aula);
+	font-style: italic;
 }
