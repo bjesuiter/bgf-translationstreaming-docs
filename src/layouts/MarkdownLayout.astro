@@ -1,16 +1,19 @@
 ---
 import Layout from './Layout.astro';
-import DateEnhancer from '../components/DateEnhancer.astro';
 
 const { frontmatter } = Astro.props;
 ---
 
 <Layout title={frontmatter.title}>
 	<div class="mb-6">
-		<a href="/" class="back-link">&larr; Zurück zur Übersicht</a>
+		<a
+			href="/"
+			class="inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-hover transition-colors"
+		>
+			&larr; Zurück zur Übersicht
+		</a>
 	</div>
-	<article class="prose dark:prose-invert max-w-none">
+	<article class="max-w-none">
 		<slot />
 	</article>
-	<DateEnhancer />
 </Layout>

@@ -1,0 +1,148 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = '2025 Schulungswoche - Streamplan';
+
+// Language streams data
+const languages = [
+	'S01 - English',
+	'S02 – Japanisch',
+	'S03 – Spanisch',
+	'S04 – Farsi / Persisch',
+	'S05 – Polnisch',
+	'S06 – Koreanisch',
+	'S07 – Französisch',
+	'S09 – Schwedisch',
+	'S10 – Chinesisch',
+	'S11 – Mongolisch',
+	'S12 – Niederländisch',
+	'S13 – Italienisch',
+	'S14 – Tschechisch',
+	'S15 – Slowenisch',
+];
+
+// Schedule dates
+const dates = [
+	'2025-12-27',
+	'2025-12-28',
+	'2025-12-29',
+	'2025-12-30',
+	'2025-12-31',
+	'2026-01-01',
+];
+---
+
+<Layout title={title}>
+	<div class="mb-6">
+		<a
+			href="/"
+			class="inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-hover transition-colors"
+		>
+			&larr; Zurück zur Übersicht
+		</a>
+	</div>
+
+	<div class="space-y-8">
+		{dates.map((date) => (
+			<section data-date={date}>
+				<h2
+					class="text-xl font-semibold text-text-primary mb-4 pb-2 border-b border-border-primary flex items-center gap-3"
+					data-date={date}
+				>
+					<span class="date-text">{date}</span>
+				</h2>
+
+				<div class="overflow-x-auto -mx-4 px-4">
+					<table class="w-full max-w-4xl border-collapse bg-bg-secondary border border-border-primary shadow-sm rounded-lg overflow-hidden text-sm">
+						<thead class="bg-bg-tertiary border-b border-border-primary">
+							<tr>
+								<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
+									Sprachen
+								</th>
+								<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
+									Morgens
+								</th>
+								<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
+									Nachmittags
+								</th>
+								<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
+									Abends
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							{languages.map((lang, index) => (
+								<tr class={`
+									border-b border-border-primary last:border-b-0
+									${index % 2 === 1 ? 'bg-bg-tertiary' : ''}
+									hover:bg-bg-hover transition-colors
+								`}>
+									<td class="px-4 py-3 font-medium text-text-primary whitespace-nowrap">
+										{lang}
+									</td>
+									<td class="px-4 py-3 text-text-secondary"></td>
+									<td class="px-4 py-3 text-text-secondary"></td>
+									<td class="px-4 py-3 text-text-secondary"></td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
+			</section>
+		))}
+	</div>
+</Layout>
+
+<script>
+	import { format, isToday, parseISO } from 'date-fns';
+	import { de } from 'date-fns/locale';
+
+	function enhanceDates(): void {
+		const sections = document.querySelectorAll('section[data-date]');
+
+		sections.forEach((section) => {
+			const dateStr = section.getAttribute('data-date');
+			if (!dateStr) return;
+
+			const date = parseISO(dateStr);
+			const heading = section.querySelector('h2[data-date]');
+			const dateSpan = heading?.querySelector('.date-text');
+			const table = section.querySelector('table');
+
+			if (!dateSpan) return;
+
+			// Format the date nicely in German
+			const formattedDate = format(date, 'EEEE, d. MMMM yyyy', { locale: de });
+
+			// Check if this is today
+			const isTodayDate = isToday(date);
+
+			if (isTodayDate) {
+				// Add "Heute" badge
+				dateSpan.textContent = formattedDate;
+
+				const badge = document.createElement('span');
+				badge.className =
+					'inline-flex items-center px-3 py-1 text-xs font-semibold uppercase tracking-wide bg-today-bg text-today-text border border-today-border rounded-full';
+				badge.textContent = 'Heute';
+				heading?.appendChild(badge);
+
+				// Highlight today's table
+				table?.classList.add('ring-2', 'ring-today-border');
+
+				// Scroll to today's section
+				setTimeout(() => {
+					heading?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				}, 300);
+			} else {
+				dateSpan.textContent = formattedDate;
+			}
+		});
+	}
+
+	// Run on initial load
+	enhanceDates();
+
+	// Run on Astro view transitions
+	document.addEventListener('astro:after-swap', enhanceDates);
+</script>
