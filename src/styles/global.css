@@ -14,16 +14,16 @@
 	--color-bg-primary: var(--color-slate-50);
 	--color-bg-secondary: var(--color-white);
 	--color-bg-tertiary: var(--color-slate-100);
-	--color-bg-hover: var(--color-blue-50);
+	--color-bg-hover: var(--color-blue-100);
 
-	/* Text colors - improved contrast */
+	/* Text colors - high contrast for accessibility */
 	--color-text-primary: var(--color-slate-900);
-	--color-text-secondary: var(--color-slate-700);
-	--color-text-muted: var(--color-slate-500);
+	--color-text-secondary: var(--color-slate-800);
+	--color-text-muted: var(--color-slate-600);
 
 	/* Border colors */
-	--color-border-primary: var(--color-slate-200);
-	--color-border-secondary: var(--color-slate-300);
+	--color-border-primary: var(--color-slate-300);
+	--color-border-secondary: var(--color-slate-400);
 
 	/* Accent colors */
 	--color-accent: var(--color-blue-600);
