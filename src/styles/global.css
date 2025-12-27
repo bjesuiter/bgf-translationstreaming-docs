@@ -1,10 +1,130 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
+/* Enable class-based dark mode (instead of media query) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
 	--color-slate-950: #020617;
 }
 
 :root {
 	color-scheme: light dark;
+}
+
+/* Custom Table Styles for Markdown Content */
+.prose h2 {
+	margin-top: 3rem;
+	margin-bottom: 1.5rem;
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: #1e293b;
+	border-bottom: 1px solid #e2e8f0;
+	padding-bottom: 0.5rem;
+}
+
+.prose table {
+	width: 100%;
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
+	margin-left: 0;
+	margin-right: 0;
+	border-collapse: collapse;
+	background-color: #ffffff;
+	border: 1px solid #e2e8f0;
+	box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+	border-radius: 0.5rem;
+	overflow: hidden;
+	font-size: 0.875rem;
+}
+
+.prose thead {
+	background-color: #f1f5f9;
+	border-bottom: 1px solid #e2e8f0;
+}
+
+.prose th {
+	padding: 0.75rem 1rem;
+	text-align: left;
+	font-weight: 600;
+	color: #475569;
+}
+
+.prose td {
+	padding: 0.75rem 1rem;
+	color: #64748b;
+	border-bottom: 1px solid #f1f5f9;
+	vertical-align: middle;
+}
+
+.prose tr:last-child td {
+	border-bottom: none;
+}
+
+/* Zebra Striping */
+.prose tbody tr:nth-child(even) {
+	background-color: #f8fafc;
+}
+
+.prose tbody tr:hover {
+	background-color: #eff6ff;
+	transition: background-color 0.15s ease;
+}
+
+/* First column styling */
+.prose td:first-child,
+.prose th:first-child {
+	padding-left: 1.5rem;
+	font-weight: 500;
+	color: #0f172a;
+}
+
+/* Last column styling */
+.prose td:last-child,
+.prose th:last-child {
+	padding-right: 1.5rem;
+}
+
+/* Dark Mode Styles */
+@media (prefers-color-scheme: dark) {
+	.prose h2 {
+		color: #f1f5f9;
+		border-bottom-color: #334155;
+	}
+
+	.prose table {
+		background-color: #0f172a;
+		border: 1px solid #334155;
+		box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3),
+			0 0 0 1px rgba(148, 163, 184, 0.1);
+	}
+
+	.prose thead {
+		background-color: #1e293b;
+		border-bottom-color: #334155;
+	}
+
+	.prose th {
+		color: #e2e8f0;
+	}
+
+	.prose td {
+		color: #94a3b8;
+		border-bottom-color: #1e293b;
+	}
+
+	/* Zebra Striping - Dark */
+	.prose tbody tr:nth-child(even) {
+		background-color: #1e293b;
+	}
+
+	.prose tbody tr:hover {
+		background-color: rgba(30, 58, 138, 0.3);
+	}
+
+	/* First column styling - Dark */
+	.prose td:first-child,
+	.prose th:first-child {
+		color: #f1f5f9;
+	}
 }

@@ -1,0 +1,153 @@
+---
+// Theme toggle component with light, dark, and system modes
+---
+
+<div class="theme-toggle">
+	<button
+		id="theme-toggle"
+		type="button"
+		class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+		aria-label="Theme umschalten"
+	>
+		<svg
+			id="theme-icon-light"
+			class="theme-icon hidden h-5 w-5"
+			fill="none"
+			stroke="currentColor"
+			viewBox="0 0 24 24"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="2"
+				d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+			></path>
+		</svg>
+		<svg
+			id="theme-icon-dark"
+			class="theme-icon hidden h-5 w-5"
+			fill="none"
+			stroke="currentColor"
+			viewBox="0 0 24 24"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="2"
+				d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+			></path>
+		</svg>
+		<svg
+			id="theme-icon-system"
+			class="theme-icon hidden h-5 w-5"
+			fill="none"
+			stroke="currentColor"
+			viewBox="0 0 24 24"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="2"
+				d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+			></path>
+		</svg>
+		<span id="theme-label"></span>
+	</button>
+</div>
+
+<script>
+	type Theme = 'light' | 'dark' | 'system';
+
+	const STORAGE_KEY = 'theme-preference';
+	const themes: Theme[] = ['system', 'light', 'dark'];
+	const labels: Record<Theme, string> = {
+		light: 'Hell',
+		dark: 'Dunkel',
+		system: 'System',
+	};
+
+	function getThemePreference(): Theme {
+		const stored = localStorage.getItem(STORAGE_KEY);
+		if (stored && themes.includes(stored as Theme)) {
+			return stored as Theme;
+		}
+		return 'system';
+	}
+
+	function setThemePreference(theme: Theme): void {
+		localStorage.setItem(STORAGE_KEY, theme);
+	}
+
+	function getEffectiveTheme(theme: Theme): 'light' | 'dark' {
+		if (theme === 'system') {
+			return window.matchMedia('(prefers-color-scheme: dark)').matches
+				? 'dark'
+				: 'light';
+		}
+		return theme;
+	}
+
+	function applyTheme(theme: Theme): void {
+		const effectiveTheme = getEffectiveTheme(theme);
+		const html = document.documentElement;
+
+		if (effectiveTheme === 'dark') {
+			html.classList.add('dark');
+		} else {
+			html.classList.remove('dark');
+		}
+	}
+
+	function updateUI(theme: Theme): void {
+		const label = document.getElementById('theme-label');
+		const icons = {
+			light: document.getElementById('theme-icon-light'),
+			dark: document.getElementById('theme-icon-dark'),
+			system: document.getElementById('theme-icon-system'),
+		};
+
+		if (label) {
+			label.textContent = labels[theme];
+		}
+
+		// Hide all icons, then show the current one
+		Object.values(icons).forEach((icon) => icon?.classList.add('hidden'));
+		icons[theme]?.classList.remove('hidden');
+	}
+
+	function cycleTheme(): void {
+		const current = getThemePreference();
+		const currentIndex = themes.indexOf(current);
+		const nextIndex = (currentIndex + 1) % themes.length;
+		const nextTheme = themes[nextIndex];
+
+		setThemePreference(nextTheme);
+		applyTheme(nextTheme);
+		updateUI(nextTheme);
+	}
+
+	// Initialize on page load
+	function init(): void {
+		const theme = getThemePreference();
+		applyTheme(theme);
+		updateUI(theme);
+
+		// Listen for system theme changes when in system mode
+		window
+			.matchMedia('(prefers-color-scheme: dark)')
+			.addEventListener('change', () => {
+				const currentTheme = getThemePreference();
+				if (currentTheme === 'system') {
+					applyTheme('system');
+				}
+			});
+
+		// Add click handler
+		const button = document.getElementById('theme-toggle');
+		button?.addEventListener('click', cycleTheme);
+	}
+
+	// Run on initial load and on view transitions
+	init();
+	document.addEventListener('astro:after-swap', init);
+</script>
