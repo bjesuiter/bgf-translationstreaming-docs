@@ -5,6 +5,7 @@ Guidelines for AI coding agents working in this repository.
 ## Project Overview
 
 **Astro Starlight** documentation site for BGF Translation Streaming.
+
 - **Framework**: Astro 5.x with Starlight 0.37.x
 - **Language**: TypeScript (strict mode)
 - **Package Manager**: Bun
@@ -22,6 +23,10 @@ bun preview          # Preview production build
 # Astro CLI
 bun astro check      # Type checking
 bun astro add <pkg>  # Add integrations
+
+# Formatting
+bun format           # Format all files with Prettier
+bun format:check     # Check if files are formatted correctly
 
 # Testing (when configured)
 bun test                    # Run all tests
@@ -45,6 +50,7 @@ bun test <path/to/test.ts>  # Run single test
 ## Code Style
 
 ### TypeScript
+
 - Strict mode via `astro/tsconfigs/strict`
 - ES Modules (`"type": "module"`)
 - Explicit types for function parameters and return values
@@ -53,14 +59,17 @@ bun test <path/to/test.ts>  # Run single test
 
 ```typescript
 interface DocConfig {
-  title: string;
-  description?: string;
+	title: string;
+	description?: string;
 }
 
-export function getConfig(name: string): DocConfig { /* ... */ }
+export function getConfig(name: string): DocConfig {
+	/* ... */
+}
 ```
 
 ### Imports
+
 - ES module imports only
 - Order: external packages > internal modules > relative paths
 - Use `type` keyword for type-only imports
@@ -72,18 +81,23 @@ import type { DocConfig } from './types';
 ```
 
 ### Astro Components
+
 - Use `.astro` extension, place in `src/components/`
 - Component logic in frontmatter (`---`)
 
 ```astro
 ---
-interface Props { title: string; }
+interface Props {
+	title: string;
+}
 const { title } = Astro.props;
 ---
+
 <h1>{title}</h1>
 ```
 
 ### Content Authoring (Markdown/MDX)
+
 - Place docs in `src/content/docs/`
 - Always include `title` and `description` in frontmatter
 - Use `<h2>` and below (page title auto-generated from frontmatter)
@@ -101,16 +115,17 @@ Content starts here...
 
 ### Naming Conventions
 
-| Type | Convention | Example |
-|------|------------|---------|
-| Doc files | kebab-case | `getting-started.md` |
-| Code files | camelCase | `contentConfig.ts` |
-| Components | PascalCase | `CustomButton.astro` |
-| Variables | camelCase | `pageTitle` |
-| Constants | UPPER_SNAKE_CASE | `MAX_ITEMS` |
-| Interfaces/Types | PascalCase | `DocConfig` |
+| Type             | Convention       | Example              |
+| ---------------- | ---------------- | -------------------- |
+| Doc files        | kebab-case       | `getting-started.md` |
+| Code files       | camelCase        | `contentConfig.ts`   |
+| Components       | PascalCase       | `CustomButton.astro` |
+| Variables        | camelCase        | `pageTitle`          |
+| Constants        | UPPER_SNAKE_CASE | `MAX_ITEMS`          |
+| Interfaces/Types | PascalCase       | `DocConfig`          |
 
 ### Formatting
+
 - **Indentation**: Tabs
 - **Quotes**: Single quotes
 - **Semicolons**: Required
@@ -121,10 +136,10 @@ Content starts here...
 
 ```typescript
 try {
-  const data = await fetchData();
+	const data = await fetchData();
 } catch (error) {
-  console.error('Failed to fetch:', error);
-  throw new Error(`Fetch failed: ${error.message}`);
+	console.error('Failed to fetch:', error);
+	throw new Error(`Fetch failed: ${error.message}`);
 }
 ```
 
@@ -145,7 +160,9 @@ sidebar: [
 import { Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
 
 <CardGrid>
-  <Card title="Feature" icon="star">Description</Card>
+	<Card title="Feature" icon="star">
+		Description
+	</Card>
 </CardGrid>
 ```
 
