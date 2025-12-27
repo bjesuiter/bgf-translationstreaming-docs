@@ -1,8 +1,8 @@
 export const sidebar = [
 	{
-		label: 'Allgemeine Anleitungen',
+		label: 'Allgemeines',
 		translations: {
-			en: 'General Guides',
+			en: 'General',
 		},
 		items: [
 			{
@@ -10,51 +10,66 @@ export const sidebar = [
 				translations: {
 					en: 'Introduction',
 				},
-				slug: 'index',
-			},
-			{
-				label: 'Bedienung des Ü-Streaming',
-				translations: {
-					en: 'Operating Translation Streaming',
-				},
-				slug: 'guides/operation',
-			},
-			{
-				label: 'FAQ',
-				translations: {
-					en: 'FAQ',
-				},
-				slug: 'guides/faq',
+				slug: 'general/introduction',
 			},
 		],
 	},
 	{
-		label: 'Erweiterte Anleitungen',
+		label: 'Vor der Tagung',
 		translations: {
-			en: 'Advanced Guides',
+			en: 'Before the Conference',
 		},
 		items: [
 			{
-				label: 'Hardware-Setup',
+				label: 'Zusammenstellung des Streamplans',
 				translations: {
-					en: 'Hardware Setup',
+					en: 'Stream Schedule Compilation',
 				},
-				slug: 'advanced/hardware-setup',
+				slug: 'pre-conference/streamplan-preparation',
+			},
+			{
+				label: 'Aufbau der Technik',
+				translations: {
+					en: 'Technical Setup',
+				},
+				slug: 'pre-conference/technical-setup',
 			},
 		],
 	},
 	{
-		label: 'Live-Konferenz: 2025-SWO',
+		label: 'Während der Tagung',
 		translations: {
-			en: 'Live Conference: 2025-SWO',
+			en: 'During the Conference',
 		},
 		items: [
 			{
-				label: 'Streamplan',
+				label: 'Ü-Streaming Bedienung',
 				translations: {
-					en: 'Stream Schedule',
+					en: 'Translation Streaming Operation',
 				},
-				slug: '2025-swo/streamplan',
+				slug: 'during-conference/translation-streaming-operation',
+			},
+			{
+				label: 'FAQ - Häufige Fragen und Lösungen',
+				translations: {
+					en: 'FAQ - Frequently Asked Questions and Solutions',
+				},
+				slug: 'during-conference/faq',
+			},
+		],
+	},
+	{
+		label: 'Nach der Tagung',
+		translations: {
+			en: 'After the Conference',
+		},
+		items: [
+			{
+				label: 'Nachbesprechungs-IGR',
+				translations: {
+					en: 'Post-Conference Review IGR',
+				},
+				slug: 'post-conference/post-conference-review-igr',
 			},
 		],
 	},

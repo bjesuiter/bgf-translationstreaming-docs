@@ -43,16 +43,40 @@ bun test <path/to/test.ts>  # Run single test
 │   ├── assets/              # Images (processed by Astro)
 │   ├── content/docs/        # Documentation pages
 │   │   ├── de/              # German content (/de/...)
-│   │   │   ├── guides/      # General guides
-│   │   │   ├── advanced/    # Advanced guides
-│   │   │   └── 2025-swo/    # Live conference info
+│   │   │   ├── general/     # General information
+│   │   │   ├── pre-conference/     # Before the conference
+│   │   │   ├── during-conference/  # During the conference
+│   │   │   └── post-conference/    # After the conference
 │   │   └── en/              # English content (/en/...)
-│   │       ├── guides/      # General guides
-│   │       ├── advanced/    # Advanced guides
-│   │       └── 2025-swo/    # Live conference info
+│   │       ├── general/     # General information
+│   │       ├── pre-conference/     # Before the conference
+│   │       ├── during-conference/  # During the conference
+│   │       └── post-conference/    # After the conference
 │   └── content.config.ts    # Content collection schema
 ├── astro.config.mjs         # Astro + Starlight config
 └── tsconfig.json            # TypeScript config (strict)
+```
+
+## Content Structure Guidelines
+
+### Folder Naming Convention
+
+**IMPORTANT**: Always use English names for folders and code paths, regardless of content language.
+
+- **`general/`** - General information and introduction
+- **`pre-conference/`** - Everything before the conference starts
+- **`during-conference/`** - Live operation during the conference
+- **`post-conference/`** - Follow-up and review after the conference
+
+### URL Structure
+
+The language prefix (`/de/` or `/en/`) determines the content language, but the folder structure remains in English:
+
+```
+/de/general/introduction/     # German content in English-named folder
+/en/general/introduction/     # English content in English-named folder
+/de/pre-conference/streamplan/ # German content in English-named folder
+/en/pre-conference/streamplan/ # English content in English-named folder
 ```
 
 ## Code Style

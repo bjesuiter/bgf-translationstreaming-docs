@@ -5,38 +5,33 @@ template: splash
 hero:
   tagline: Willkommen bei BGF Ü-Streaming
   image:
-    file: ../../../assets/houston.webp
+    file: ../../../assets/example-cropped.png
   actions:
-    - text: FAQ lesen
-      link: /de/guides/faq/
+    - text: Einführung
+      link: /de/general/introduction/
       icon: right-arrow
-    - text: Bedienung
-      link: /de/guides/operation/
-      icon: rocket
-      variant: minimal
+    - text: Streamplan zusammenstellen
+      link: /de/pre-conference/streamplan-preparation/
+      icon: seti:default
+      variant: secondary
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
 ## Übersicht
 
-BGF Ü-Streaming (Übersetzungs-Streaming) ist die Lösung für Live-Übersetzungen bei IGR-Konferenzen.
-
 <CardGrid stagger>
-	<Card title="Bedienung" icon="laptop">
-		Erfahren Sie, wie Sie das Ü-Streaming für IGR-Konferenzen bedienen.
+	<Card title="Vor der Tagung" icon="calendar" href="/de/pre-conference/streamplan-preparation/">
+		Alles was Sie vor der Tagung wissen müssen: Streamplan und technischer Aufbau.
 	</Card>
-	<Card title="Hardware-Setup" icon="setting">
-		Anleitungen zum Aufbau der Hardware vor Konferenzen.
+	<Card title="Während der Tagung" icon="play" href="/de/during-conference/translation-streaming-operation/">
+		Bedienung des Ü-Streamings und FAQ für die Live-Durchführung.
 	</Card>
-	<Card title="Live-Konferenz" icon="star">
-		Streamplan für die 2025-SWO Konferenz.
-	</Card>
-	<Card title="FAQ" icon="information">
-		Häufig gestellte Fragen und Lösungen.
+	<Card title="Nach der Tagung" icon="check" href="/de/post-conference/post-conference-review-igr/">
+		Nachbesprechung und Auswertung nach der IGR.
 	</Card>
 </CardGrid>
 
 ## Erste Schritte
 
-Beginnen Sie mit der [Bedienungsanleitung](/de/guides/operation/) oder besuchen Sie unsere [FAQ-Seite](/de/guides/faq/).
+Beginnen Sie mit der [Einführung](/de/general/introduction/) oder besuchen Sie unsere [FAQ-Seite](/de/during-conference/faq/).

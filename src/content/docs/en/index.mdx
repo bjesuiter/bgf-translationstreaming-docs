@@ -5,15 +5,15 @@ template: splash
 hero:
   tagline: Welcome to BGF Translation Streaming
   image:
-    file: ../../../assets/houston.webp
+    file: ../../../assets/example-cropped.png
   actions:
-    - text: Read FAQ
-      link: /en/guides/faq/
+    - text: Introduction
+      link: /en/general/introduction/
       icon: right-arrow
-    - text: Operation Guide
-      link: /en/guides/operation/
-      icon: rocket
-      variant: minimal
+    - text: Stream Schedule Compilation
+      link: /en/pre-conference/streamplan-preparation/
+      icon: seti:default
+      variant: secondary
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
@@ -23,20 +23,17 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 BGF Translation Streaming is the solution for live translations at IGR conferences.
 
 <CardGrid stagger>
-	<Card title="Operation" icon="laptop">
-		Learn how to operate Translation Streaming for IGR conferences.
+	<Card title="Before the Conference" icon="calendar" href="/en/pre-conference/streamplan-preparation/">
+		Everything you need to know before the conference: stream schedule and technical setup.
 	</Card>
-	<Card title="Hardware Setup" icon="setting">
-		Instructions for setting up hardware before conferences.
+	<Card title="During the Conference" icon="play" href="/en/during-conference/translation-streaming-operation/">
+		Translation streaming operation and FAQ for live execution.
 	</Card>
-	<Card title="Live Conference" icon="star">
-		Stream schedule for the 2025-SWO conference.
-	</Card>
-	<Card title="FAQ" icon="information">
-		Frequently asked questions and solutions.
+	<Card title="After the Conference" icon="check" href="/en/post-conference/post-conference-review-igr/">
+		Post-conference review and evaluation after the IGR.
 	</Card>
 </CardGrid>
 
 ## Getting Started
 
-Start with the [Operation Guide](/en/guides/operation/) or visit our [FAQ page](/en/guides/faq/).
+Start with the [Introduction](/en/general/introduction/) or visit our [FAQ page](/en/during-conference/faq/).
