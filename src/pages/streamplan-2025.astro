@@ -136,37 +136,49 @@ const schedules: Record<string, ScheduleData> = {
 	</div>
 
 	<div class="space-y-8">
-		{dates.map((date) => (
-			<section data-date={date}>
-				<h2
-					class="text-xl font-semibold text-text-primary mb-4 pb-2 border-b border-border-primary flex items-center gap-3"
-					data-date={date}
-				>
-					<span class="date-text">{date}</span>
-				</h2>
+		{dates.map((date) => {
+			// Determine which columns to show
+			const showMorning = date !== '2025-12-27';
+			const showAfternoon = date !== '2026-01-01';
+			const showEvening = date !== '2026-01-01';
 
-				<div class="overflow-x-auto -mx-4 px-4">
-					<table class="w-full max-w-4xl border-collapse bg-bg-secondary border border-border-secondary shadow-lg rounded-lg overflow-hidden text-sm">
-						<thead class="bg-bg-tertiary border-b border-border-primary">
-							<tr>
-								<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
-									Sprachen
-								</th>
-								<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
-									Morgens
-								</th>
-								<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
-									Nachmittags
-								</th>
-								<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
-									Abends
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							{languages.map((lang, index) => {
-								const langSchedule = schedules[lang];
-								const dateSchedule = langSchedule?.[date];
+			return (
+				<section data-date={date}>
+					<h2
+						class="text-xl font-semibold text-text-primary mb-4 pb-2 border-b border-border-primary flex items-center gap-3"
+						data-date={date}
+					>
+						<span class="date-text">{date}</span>
+					</h2>
+
+					<div class="overflow-x-auto -mx-4 px-4">
+						<table class="w-full max-w-4xl border-collapse bg-bg-secondary border border-border-secondary shadow-lg rounded-lg overflow-hidden text-sm">
+							<thead class="bg-bg-tertiary border-b border-border-primary">
+								<tr>
+									<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
+										Sprachen
+									</th>
+									{showMorning && (
+										<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
+											Morgens
+										</th>
+									)}
+									{showAfternoon && (
+										<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
+											Nachmittags
+										</th>
+									)}
+									{showEvening && (
+										<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
+											Abends
+										</th>
+									)}
+								</tr>
+							</thead>
+							<tbody>
+								{languages.map((lang, index) => {
+									const langSchedule = schedules[lang];
+									const dateSchedule = langSchedule?.[date];
 
 								const getLocationClass = (location: Location): string => {
 									switch (location) {
@@ -222,15 +234,21 @@ const schedules: Record<string, ScheduleData> = {
 										<td class="px-4 py-3 font-medium text-text-primary whitespace-nowrap">
 											{lang}
 										</td>
-										<td class="px-4 py-3 text-text-secondary">
-											{renderSchedule(dateSchedule?.morning)}
-										</td>
-										<td class="px-4 py-3 text-text-secondary">
-											{renderSchedule(dateSchedule?.afternoon)}
-										</td>
-										<td class="px-4 py-3 text-text-secondary">
-											{renderSchedule(dateSchedule?.evening)}
-										</td>
+										{showMorning && (
+											<td class="px-4 py-3 text-text-secondary">
+												{renderSchedule(dateSchedule?.morning)}
+											</td>
+										)}
+										{showAfternoon && (
+											<td class="px-4 py-3 text-text-secondary">
+												{renderSchedule(dateSchedule?.afternoon)}
+											</td>
+										)}
+										{showEvening && (
+											<td class="px-4 py-3 text-text-secondary">
+												{renderSchedule(dateSchedule?.evening)}
+											</td>
+										)}
 									</tr>
 								);
 							})}
@@ -238,7 +256,8 @@ const schedules: Record<string, ScheduleData> = {
 					</table>
 				</div>
 			</section>
-		))}
+			);
+		})}
 	</div>
 </Layout>
 
