@@ -190,16 +190,7 @@ const schedules: Record<string, ScheduleData> = {
 };
 ---
 
-<Layout title={title}>
-	<div class="mb-6">
-		<a
-			href="/"
-			class="inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-hover transition-colors"
-		>
-			&larr; Zurück zur Übersicht
-		</a>
-	</div>
-
+<Layout title={title} type="subpage">
 	<div class="space-y-8">
 		{
 			dates.map(date => {

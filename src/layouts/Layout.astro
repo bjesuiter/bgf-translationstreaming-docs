@@ -4,9 +4,10 @@ import ThemeToggle from '../components/ThemeToggle.astro';
 
 interface Props {
 	title: string;
+	type?: 'default' | 'subpage';
 }
 
-const { title } = Astro.props;
+const { title, type = 'default' } = Astro.props;
 
 const buildTime = new Date().toLocaleString('de-DE', {
 	dateStyle: 'medium',
@@ -50,15 +51,25 @@ const buildTime = new Date().toLocaleString('de-DE', {
 		<header class="sticky top-0 z-50 bg-bg-primary/95 backdrop-blur-sm border-b border-border-primary">
 			<div class="container mx-auto px-4 py-3">
 				<div class="flex items-center justify-between">
-					<h1 class="text-xl font-bold text-text-primary truncate">{title}</h1>
+					<div class="flex items-center gap-4">
+						{type === 'subpage' && (
+							<a
+								href="/"
+								class="inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-hover transition-colors"
+							>
+								&larr; Zurück
+							</a>
+						)}
+						<h1 class="text-xl font-bold text-text-primary truncate">{title}</h1>
+					</div>
 					<ThemeToggle />
 				</div>
 			</div>
 		</header>
-		<main class="container mx-auto px-4 py-6">
+		<main class="container mx-auto px-4 py-6 pb-20">
 			<slot />
 		</main>
-		<footer class="border-t border-border-primary bg-bg-secondary">
+		<footer class="fixed bottom-0 left-0 right-0 border-t border-border-primary bg-bg-secondary">
 			<div class="container mx-auto px-4 py-4 text-center">
 				<p class="text-sm text-text-secondary">
 					Zuletzt aktualisiert: <time>{buildTime}</time>
