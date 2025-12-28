@@ -89,6 +89,46 @@ const schedules: Record<string, ScheduleData> = {
 			morning: [{ location: 'igr-to-igr' }],
 		},
 	},
+	'S03 – Spanisch': {
+		'2025-12-28': {
+			morning: [{ location: 'igr-to-igr', note: 'Aula hatte schlechte Qualität' }],
+		},
+	},
+	'S05 – Polnisch': {
+		'2025-12-28': {
+			morning: [{ location: 'aula-to-igr' }],
+		},
+	},
+	'S06 – Koreanisch': {
+		'2025-12-28': {
+			morning: [{ location: 'aula-to-igr' }],
+		},
+	},
+	'S07 – Französisch': {
+		'2025-12-28': {
+			morning: [{ location: 'aula-to-igr' }],
+		},
+	},
+	'S10 – Chinesisch': {
+		'2025-12-28': {
+			morning: [{ location: 'aula-to-igr' }],
+		},
+	},
+	'S12 – Niederländisch': {
+		'2025-12-28': {
+			morning: [{ location: 'aula-to-igr' }],
+		},
+	},
+	'S13 – Italienisch': {
+		'2025-12-28': {
+			morning: [{ location: 'aula-to-igr' }],
+		},
+	},
+	'S15 – Slowenisch': {
+		'2025-12-28': {
+			morning: [{ location: 'aula-to-igr' }],
+		},
+	},
 	'S04 – Farsi / Persisch': {
 		'2025-12-27': {
 			morning: [{ location: 'none' }],
@@ -262,7 +302,7 @@ const schedules: Record<string, ScheduleData> = {
 												case 'igr-to-aula':
 													return 'von IGR für Aula';
 												case 'none':
-													return '/';
+													return '—';
 											}
 										};
 
@@ -270,7 +310,9 @@ const schedules: Record<string, ScheduleData> = {
 											if (!items || items.length === 0) return '';
 
 											return items.map(item => (
-												<p class={item.note ? 'mb-2 last:mb-0' : ''}>
+												<p
+													class={`${item.note ? 'mb-2 last:mb-0' : ''} ${item.location === 'none' ? 'ml-12' : ''}`}
+												>
 													<span class={getLocationClass(item.location)}>
 														{getLocationText(item.location)}
 													</span>
