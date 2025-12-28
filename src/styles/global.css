@@ -119,3 +119,10 @@
 	color: var(--color-location-igr-aula);
 	font-style: italic;
 }
+
+/* ============================================
+   SCROLL BEHAVIOR
+   ============================================ */
+h2[data-date] {
+	scroll-margin-top: 5rem;
+}
