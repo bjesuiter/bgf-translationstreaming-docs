@@ -8,11 +8,6 @@ interface Props {
 }
 
 const { title, type = 'default' } = Astro.props;
-
-const buildTime = new Date().toLocaleString('de-DE', {
-	dateStyle: 'medium',
-	timeStyle: 'short',
-});
 ---
 
 <!doctype html>
@@ -76,9 +71,34 @@ const buildTime = new Date().toLocaleString('de-DE', {
 		<footer class="fixed bottom-0 left-0 right-0 border-t border-border-primary bg-bg-secondary">
 			<div class="container mx-auto px-4 py-4 text-center">
 				<p class="text-sm text-text-secondary">
-					Zuletzt aktualisiert: <time>{buildTime}</time>
+					Zuletzt aktualisiert: <time id="build-time" data-build-date={new Date().toISOString()}>-</time>
 				</p>
 			</div>
 		</footer>
+		<script>
+			import { formatInTimeZone } from 'date-fns-tz';
+			import { de } from 'date-fns/locale';
+
+			function formatBuildTime(): void {
+				const buildTimeElement = document.getElementById('build-time');
+				if (!buildTimeElement) return;
+
+				const buildDateStr = buildTimeElement.getAttribute('data-build-date');
+				if (!buildDateStr) return;
+
+				const browserTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+				const formattedTime = formatInTimeZone(
+					new Date(buildDateStr),
+					browserTimeZone,
+					'd. MMMM yyyy, HH:mm',
+					{ locale: de },
+				);
+
+				buildTimeElement.textContent = formattedTime;
+			}
+
+			formatBuildTime();
+			document.addEventListener('astro:after-swap', formatBuildTime);
+		</script>
 	</body>
 </html>

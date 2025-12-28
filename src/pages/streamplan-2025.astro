@@ -366,8 +366,9 @@ const schedules: Record<string, ScheduleData> = {
 </Layout>
 
 <script>
-	import { format, isToday, parseISO } from 'date-fns';
+	import { isToday, parseISO } from 'date-fns';
 	import { de } from 'date-fns/locale';
+	import { toZonedTime, formatInTimeZone } from 'date-fns-tz';
 
 	function getCurrentTimeslot(): 'morning' | 'afternoon' | 'evening' | null {
 		const now = new Date();
@@ -408,24 +409,34 @@ const schedules: Record<string, ScheduleData> = {
 	}
 
 	function enhanceDates(): void {
+		// Get browser's timezone
+		const browserTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 		const sections = document.querySelectorAll('section[data-date]');
 
 		sections.forEach(section => {
 			const dateStr = section.getAttribute('data-date');
 			if (!dateStr) return;
 
-			const date = parseISO(dateStr);
+			// Parse as UTC date and convert to browser's local timezone
+			const utcDate = parseISO(dateStr);
+			const localDate = toZonedTime(utcDate, browserTimeZone);
+
 			const heading = section.querySelector('h2[data-date]');
 			const dateSpan = heading?.querySelector('.date-text');
 			const table = section.querySelector('table');
 
 			if (!dateSpan) return;
 
-			// Format the date nicely in German
-			const formattedDate = format(date, 'EEEE, d. MMMM yyyy', { locale: de });
+			// Format the date nicely in German, using browser's timezone
+			const formattedDate = formatInTimeZone(
+				utcDate,
+				browserTimeZone,
+				'EEEE, d. MMMM yyyy',
+				{ locale: de },
+			);
 
-			// Check if this is today
-			const isTodayDate = isToday(date);
+			// Check if this is today (using browser's local timezone)
+			const isTodayDate = isToday(localDate);
 
 			if (isTodayDate) {
 				// Add "Heute" badge
