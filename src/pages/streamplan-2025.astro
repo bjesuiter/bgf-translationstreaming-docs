@@ -26,7 +26,7 @@ const languages = [
 const dates = ['2025-12-27', '2025-12-28', '2025-12-29', '2025-12-30', '2025-12-31', '2026-01-01'];
 
 // Schedule data for each language and date
-type Location = 'igr-to-igr' | 'aula-to-igr' | 'igr-to-aula' | 'none';
+type Location = 'igr-to-igr' | 'aula-to-igr' | 'igr-to-aula' | 'aula-default' | 'none';
 
 interface ScheduleItem {
 	location: Location;
@@ -367,6 +367,8 @@ const schedules: Record<string, ScheduleData> = {
 													return 'location-aula';
 												case 'igr-to-aula':
 													return 'location-igr-aula';
+												case 'aula-default':
+													return 'location-aula-default';
 												case 'none':
 													return 'location-igr';
 											}
@@ -380,6 +382,8 @@ const schedules: Record<string, ScheduleData> = {
 													return 'von Aula für IGR';
 												case 'igr-to-aula':
 													return 'von IGR für Aula';
+												case 'aula-default':
+													return 'von Aula, bis Meldung';
 												case 'none':
 													return '—';
 											}
