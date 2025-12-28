@@ -38,6 +38,10 @@
 	--color-today-border: var(--color-amber-400);
 	--color-today-text: var(--color-amber-800);
 
+	/* Current timeslot indicator (uses same colors as today) */
+	--color-current-timeslot-bg: var(--color-today-bg);
+	--color-current-timeslot-text: var(--color-today-text);
+
 	/* Location colors */
 	--color-location-igr: var(--color-slate-400);
 	--color-location-aula: var(--color-green-600);

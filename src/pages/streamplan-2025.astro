@@ -168,17 +168,20 @@ const schedules: Record<string, ScheduleData> = {
 										</th>
 										{showMorning && (
 											<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
-												Morgens
+												<div>Morgens</div>
+												<span class="text-xs font-normal text-text-tertiary">9:00 – 12 Uhr</span>
 											</th>
 										)}
 										{showAfternoon && (
 											<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
-												Nachmittags
+												<div>Nachmittags</div>
+												<span class="text-xs font-normal text-text-tertiary">15 – 17 Uhr</span>
 											</th>
 										)}
 										{showEvening && (
 											<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
-												Abends
+												<div>Abends</div>
+												<span class="text-xs font-normal text-text-tertiary">19:30 – 22 Uhr</span>
 											</th>
 										)}
 									</tr>
@@ -272,6 +275,44 @@ const schedules: Record<string, ScheduleData> = {
 	import { format, isToday, parseISO } from 'date-fns';
 	import { de } from 'date-fns/locale';
 
+	function getCurrentTimeslot(): 'morning' | 'afternoon' | 'evening' | null {
+		const now = new Date();
+		const hour = now.getHours();
+		const minute = now.getMinutes();
+
+		// Morning: 9:00 - 12:00
+		if (hour >= 9 && hour < 12) return 'morning';
+
+		// Afternoon: 15:00 - 17:00
+		if (hour >= 15 && hour < 17) return 'afternoon';
+
+		// Evening: 19:30 - 22:00
+		if (hour >= 19 && hour < 22) {
+			if (hour === 19 && minute < 30) return null;
+			return 'evening';
+		}
+
+		return null;
+	}
+
+	function getNextTimeslot(): 'morning' | 'afternoon' | 'evening' | null {
+		const now = new Date();
+		const hour = now.getHours();
+		const minute = now.getMinutes();
+
+		// Before morning
+		if (hour < 9) return 'morning';
+
+		// Between morning (12:00) and afternoon (15:00)
+		if (hour >= 12 && hour < 15) return 'afternoon';
+
+		// Between afternoon (17:00) and evening (19:30)
+		if (hour >= 17 && hour < 19) return 'evening';
+		if (hour === 19 && minute < 30) return 'evening';
+
+		return null;
+	}
+
 	function enhanceDates(): void {
 		const sections = document.querySelectorAll('section[data-date]');
 
@@ -305,6 +346,16 @@ const schedules: Record<string, ScheduleData> = {
 				// Highlight today's table
 				table?.classList.add('ring-2', 'ring-today-border');
 
+				// Add timeslot indicator
+				const currentTimeslot = getCurrentTimeslot();
+				const nextTimeslot = getNextTimeslot();
+
+				if (currentTimeslot) {
+					highlightTimeslot(section, currentTimeslot, 'Jetzt');
+				} else if (nextTimeslot) {
+					highlightTimeslot(section, nextTimeslot, 'Nächste');
+				}
+
 				// Scroll to today's section
 				setTimeout(() => {
 					heading?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -313,6 +364,40 @@ const schedules: Record<string, ScheduleData> = {
 				dateSpan.textContent = formattedDate;
 			}
 		});
+	}
+
+	function highlightTimeslot(section: Element, timeslot: 'morning' | 'afternoon' | 'evening', badgeText: string): void {
+		const table = section.querySelector('table');
+		if (!table) return;
+
+		const thead = table.querySelector('thead');
+		if (!thead) return;
+
+		const headers = thead.querySelectorAll('th');
+		let headerIndex = -1;
+
+		// Find the timeslot header index (skip the first "Sprachen" column)
+		if (timeslot === 'morning') headerIndex = 1;
+		if (timeslot === 'afternoon') {
+			// Check if morning column exists
+			const morningHeader = headers[1]?.textContent?.includes('Morgens');
+			headerIndex = morningHeader ? 2 : 1;
+		}
+		if (timeslot === 'evening') {
+			// Calculate based on existing columns
+			const hasMorning = headers[1]?.textContent?.includes('Morgens');
+			const hasAfternoon = headers[hasMorning ? 2 : 1]?.textContent?.includes('Nachmittags');
+			headerIndex = hasMorning && hasAfternoon ? 3 : hasMorning || hasAfternoon ? 2 : 1;
+		}
+
+		if (headerIndex > 0 && headers[headerIndex]) {
+			const header = headers[headerIndex];
+			const badge = document.createElement('span');
+			badge.className =
+				'inline-flex items-center ml-2 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide bg-current-timeslot-bg text-current-timeslot-text rounded-full';
+			badge.textContent = badgeText;
+			header.appendChild(badge);
+		}
 	}
 
 	// Run on initial load
