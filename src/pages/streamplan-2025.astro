@@ -32,7 +32,7 @@ const dates = [
 ];
 
 // Schedule data for each language and date
-type Location = 'von IGR für IGR' | 'von Aula für IGR' | 'von IGR für Aula';
+type Location = 'igr-to-igr' | 'aula-to-igr' | 'igr-to-aula' | 'none';
 
 interface ScheduleItem {
 	location: Location;
@@ -52,33 +52,33 @@ const schedules: Record<string, ScheduleData> = {
 		(acc, date) => ({
 			...acc,
 			[date]: {
-				morning: [{ location: 'von IGR für IGR' }],
-				afternoon: [{ location: 'von IGR für IGR' }],
-				evening: [{ location: 'von IGR für IGR' }],
+				morning: [{ location: 'igr-to-igr' }],
+				afternoon: [{ location: 'igr-to-igr' }],
+				evening: [{ location: 'igr-to-igr' }],
 			},
 		}),
 		{},
 	),
 	'S04 – Farsi / Persisch': {
 		'2025-12-27': {
-			evening: [{ location: 'von IGR für IGR' }],
+			evening: [{ location: 'igr-to-igr' }],
 		},
 		'2025-12-28': {
-			evening: [{ location: 'von IGR für IGR' }],
+			evening: [{ location: 'igr-to-igr' }],
 		},
 		'2025-12-29': {
-			afternoon: [{ location: 'von IGR für IGR' }],
-			evening: [{ location: 'von IGR für IGR' }],
+			afternoon: [{ location: 'igr-to-igr' }],
+			evening: [{ location: 'igr-to-igr' }],
 		},
 		'2025-12-30': {
-			afternoon: [{ location: 'von IGR für IGR' }],
-			evening: [{ location: 'von Aula für IGR' }],
+			afternoon: [{ location: 'igr-to-igr' }],
+			evening: [{ location: 'aula-to-igr' }],
 		},
 		'2025-12-31': {
-			afternoon: [{ location: 'von IGR für IGR' }],
+			afternoon: [{ location: 'igr-to-igr' }],
 			evening: [
-				{ location: 'von IGR für IGR', note: 'bis 22:45' },
-				{ location: 'von Aula für IGR', note: 'ab 22:45' },
+				{ location: 'igr-to-igr', note: 'bis 22:45' },
+				{ location: 'aula-to-igr', note: 'ab 22:45' },
 			],
 		},
 	},
@@ -130,12 +130,27 @@ const schedules: Record<string, ScheduleData> = {
 
 								const getLocationClass = (location: Location): string => {
 									switch (location) {
-										case 'von IGR für IGR':
+										case 'igr-to-igr':
 											return 'location-igr';
-										case 'von Aula für IGR':
+										case 'aula-to-igr':
 											return 'location-aula';
-										case 'von IGR für Aula':
+										case 'igr-to-aula':
 											return 'location-igr-aula';
+										case 'none':
+											return 'location-igr';
+									}
+								};
+
+								const getLocationText = (location: Location): string => {
+									switch (location) {
+										case 'igr-to-igr':
+											return 'von IGR für IGR';
+										case 'aula-to-igr':
+											return 'von Aula für IGR';
+										case 'igr-to-aula':
+											return 'von IGR für Aula';
+										case 'none':
+											return '/';
 									}
 								};
 
@@ -147,7 +162,7 @@ const schedules: Record<string, ScheduleData> = {
 									return items.map((item) => (
 										<p class={item.note ? 'mb-2 last:mb-0' : ''}>
 											<span class={getLocationClass(item.location)}>
-												{item.location}
+												{getLocationText(item.location)}
 											</span>
 											{item.note && (
 												<span class="block text-xs text-text-tertiary">
