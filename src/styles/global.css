@@ -46,7 +46,7 @@
 	--color-location-igr: var(--color-slate-400);
 	--color-location-aula: var(--color-green-600);
 	--color-location-igr-aula: var(--color-purple-600);
-	--color-location-aula-default: #D2B48C;
+	--color-location-aula-default: #d2b48c;
 
 	/* Keep slate-950 for dark mode */
 	--color-slate-950: #020617;
@@ -102,7 +102,7 @@
 	--color-location-igr: var(--color-slate-400);
 	--color-location-aula: var(--color-green-400);
 	--color-location-igr-aula: var(--color-purple-400);
-	--color-location-aula-default: #E6D4B8;
+	--color-location-aula-default: #e6d4b8;
 }
 
 /* ============================================
@@ -124,6 +124,7 @@
 
 .location-aula-default {
 	color: var(--color-location-aula-default);
+	font-weight: bold;
 }
 
 /* ============================================
