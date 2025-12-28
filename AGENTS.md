@@ -18,7 +18,7 @@ Guidelines for AI coding agents working in this repository.
 # Development
 bun install          # Install dependencies
 bun dev              # Start dev server (localhost:4321)
-bun build            # Build production site to ./dist/
+bun run build            # Build production site to ./dist/
 bun preview          # Preview production build
 
 # Astro CLI
