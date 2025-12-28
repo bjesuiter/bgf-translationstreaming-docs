@@ -152,41 +152,41 @@ const schedules: Record<string, ScheduleData> = {
 			morning: [{ location: 'igr-to-igr' }],
 		},
 	},
-		'S09 – Schwedisch': {
-			'2025-12-27': {
-				afternoon: [
-					{ location: 'igr-to-igr', note: '14:00 – 16:00' },
-					{ location: 'aula-to-igr', note: '16:00 – 17:30' },
-				],
-				evening: [{ location: 'igr-to-igr' }],
-			},
-			'2025-12-28': {
-				morning: [
-					{ location: 'igr-to-igr', note: '09:00 – 11:00' },
-					{ location: 'aula-to-igr', note: '11:00 – 12:00' },
-				],
-				afternoon: [{ location: 'aula-to-igr' }],
-				evening: [{ location: 'igr-to-igr' }],
-			},
-			'2025-12-29': {
-				morning: [{ location: 'igr-to-igr' }],
-				afternoon: [{ location: 'aula-to-igr' }],
-				evening: [{ location: 'igr-to-igr' }],
-			},
-			'2025-12-30': {
-				morning: [{ location: 'igr-to-igr' }],
-				afternoon: [{ location: 'aula-to-igr' }],
-				evening: [{ location: 'igr-to-igr' }],
-			},
-			'2025-12-31': {
-				morning: [{ location: 'igr-to-igr' }],
-				afternoon: [{ location: 'aula-to-igr' }],
-				evening: [{ location: 'aula-to-igr' }],
-			},
-			'2026-01-01': {
-				morning: [{ location: 'aula-to-igr' }],
-			},
+	'S09 – Schwedisch': {
+		'2025-12-27': {
+			afternoon: [
+				{ location: 'igr-to-igr', note: '14:00 – 16:00' },
+				{ location: 'aula-to-igr', note: '16:00 – 17:30' },
+			],
+			evening: [{ location: 'igr-to-igr' }],
 		},
+		'2025-12-28': {
+			morning: [
+				{ location: 'igr-to-igr', note: '09:00 – 11:00' },
+				{ location: 'aula-to-igr', note: '11:00 – 12:00' },
+			],
+			afternoon: [{ location: 'aula-to-igr' }],
+			evening: [{ location: 'igr-to-igr' }],
+		},
+		'2025-12-29': {
+			morning: [{ location: 'igr-to-igr' }],
+			afternoon: [{ location: 'aula-to-igr' }],
+			evening: [{ location: 'igr-to-igr' }],
+		},
+		'2025-12-30': {
+			morning: [{ location: 'igr-to-igr' }],
+			afternoon: [{ location: 'aula-to-igr' }],
+			evening: [{ location: 'igr-to-igr' }],
+		},
+		'2025-12-31': {
+			morning: [{ location: 'igr-to-igr' }],
+			afternoon: [{ location: 'aula-to-igr' }],
+			evening: [{ location: 'aula-to-igr' }],
+		},
+		'2026-01-01': {
+			morning: [{ location: 'aula-to-igr' }],
+		},
+	},
 };
 ---
 
@@ -200,7 +200,7 @@ const schedules: Record<string, ScheduleData> = {
 				const showEvening = date !== '2026-01-01';
 
 				return (
-					<section data-date={date}>
+					<section data-date={date} class="max-w-4xl mx-auto my-20">
 						<h2
 							class="text-xl font-semibold text-text-primary mb-4 pb-2 border-b border-border-primary flex items-center gap-3"
 							data-date={date}
@@ -209,7 +209,7 @@ const schedules: Record<string, ScheduleData> = {
 						</h2>
 
 						<div class="overflow-x-auto -mx-4 px-4">
-							<table class="w-full max-w-4xl border-collapse bg-bg-secondary border border-border-secondary shadow-lg rounded-lg overflow-hidden text-sm">
+							<table class="w-full border-collapse bg-bg-secondary border border-border-secondary shadow-lg rounded-lg overflow-hidden text-sm">
 								<thead class="bg-bg-tertiary border-b border-border-primary">
 									<tr>
 										<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
@@ -415,7 +415,11 @@ const schedules: Record<string, ScheduleData> = {
 		});
 	}
 
-	function highlightTimeslot(section: Element, timeslot: 'morning' | 'afternoon' | 'evening', badgeText: string): void {
+	function highlightTimeslot(
+		section: Element,
+		timeslot: 'morning' | 'afternoon' | 'evening',
+		badgeText: string,
+	): void {
 		const table = section.querySelector('table');
 		if (!table) return;
 
