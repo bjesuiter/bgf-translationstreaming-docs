@@ -7,6 +7,11 @@ interface Props {
 }
 
 const { title } = Astro.props;
+
+const buildTime = new Date().toLocaleString('de-DE', {
+	dateStyle: 'medium',
+	timeStyle: 'short',
+});
 ---
 
 <!doctype html>
@@ -53,5 +58,12 @@ const { title } = Astro.props;
 		<main class="container mx-auto px-4 py-6">
 			<slot />
 		</main>
+		<footer class="border-t border-border-primary bg-bg-secondary">
+			<div class="container mx-auto px-4 py-4 text-center">
+				<p class="text-sm text-text-secondary">
+					Zuletzt aktualisiert: <time>{buildTime}</time>
+				</p>
+			</div>
+		</footer>
 	</body>
 </html>
