@@ -22,14 +22,7 @@ const languages = [
 ];
 
 // Schedule dates
-const dates = [
-	'2025-12-27',
-	'2025-12-28',
-	'2025-12-29',
-	'2025-12-30',
-	'2025-12-31',
-	'2026-01-01',
-];
+const dates = ['2025-12-27', '2025-12-28', '2025-12-29', '2025-12-30', '2025-12-31', '2026-01-01'];
 
 // Schedule data for each language and date
 type Location = 'igr-to-igr' | 'aula-to-igr' | 'igr-to-aula' | 'none';
@@ -127,6 +120,15 @@ const schedules: Record<string, ScheduleData> = {
 			morning: [{ location: 'igr-to-igr' }],
 		},
 	},
+	'S09 – Schwedisch': {
+		'2025-12-27': {
+			afternoon: [
+				{ location: 'igr-to-igr', note: '14:00 – 16:00' },
+				{ location: 'aula-to-igr', note: '16:00 – 17:30' },
+			],
+			evening: [{ location: 'igr-to-igr' }],
+		},
+	},
 };
 ---
 
@@ -141,128 +143,128 @@ const schedules: Record<string, ScheduleData> = {
 	</div>
 
 	<div class="space-y-8">
-		{dates.map((date) => {
-			// Determine which columns to show
-			const showMorning = date !== '2025-12-27';
-			const showAfternoon = date !== '2026-01-01';
-			const showEvening = date !== '2026-01-01';
+		{
+			dates.map(date => {
+				// Determine which columns to show
+				const showMorning = date !== '2025-12-27';
+				const showAfternoon = date !== '2026-01-01';
+				const showEvening = date !== '2026-01-01';
 
-			return (
-				<section data-date={date}>
-					<h2
-						class="text-xl font-semibold text-text-primary mb-4 pb-2 border-b border-border-primary flex items-center gap-3"
-						data-date={date}
-					>
-						<span class="date-text">{date}</span>
-					</h2>
+				return (
+					<section data-date={date}>
+						<h2
+							class="text-xl font-semibold text-text-primary mb-4 pb-2 border-b border-border-primary flex items-center gap-3"
+							data-date={date}
+						>
+							<span class="date-text">{date}</span>
+						</h2>
 
-					<div class="overflow-x-auto -mx-4 px-4">
-						<table class="w-full max-w-4xl border-collapse bg-bg-secondary border border-border-secondary shadow-lg rounded-lg overflow-hidden text-sm">
-							<thead class="bg-bg-tertiary border-b border-border-primary">
-								<tr>
-									<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
-										Sprachen
-									</th>
-									{showMorning && (
+						<div class="overflow-x-auto -mx-4 px-4">
+							<table class="w-full max-w-4xl border-collapse bg-bg-secondary border border-border-secondary shadow-lg rounded-lg overflow-hidden text-sm">
+								<thead class="bg-bg-tertiary border-b border-border-primary">
+									<tr>
 										<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
-											Morgens
+											Sprachen
 										</th>
-									)}
-									{showAfternoon && (
-										<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
-											Nachmittags
-										</th>
-									)}
-									{showEvening && (
-										<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
-											Abends
-										</th>
-									)}
-								</tr>
-							</thead>
-							<tbody>
-								{languages.map((lang, index) => {
-									const langSchedule = schedules[lang];
-									const dateSchedule = langSchedule?.[date];
+										{showMorning && (
+											<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
+												Morgens
+											</th>
+										)}
+										{showAfternoon && (
+											<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
+												Nachmittags
+											</th>
+										)}
+										{showEvening && (
+											<th class="px-4 py-3 text-left font-semibold text-text-secondary whitespace-nowrap">
+												Abends
+											</th>
+										)}
+									</tr>
+								</thead>
+								<tbody>
+									{languages.map((lang, index) => {
+										const langSchedule = schedules[lang];
+										const dateSchedule = langSchedule?.[date];
 
-								const getLocationClass = (location: Location): string => {
-									switch (location) {
-										case 'igr-to-igr':
-											return 'location-igr';
-										case 'aula-to-igr':
-											return 'location-aula';
-										case 'igr-to-aula':
-											return 'location-igr-aula';
-										case 'none':
-											return 'location-igr';
-									}
-								};
+										const getLocationClass = (location: Location): string => {
+											switch (location) {
+												case 'igr-to-igr':
+													return 'location-igr';
+												case 'aula-to-igr':
+													return 'location-aula';
+												case 'igr-to-aula':
+													return 'location-igr-aula';
+												case 'none':
+													return 'location-igr';
+											}
+										};
 
-								const getLocationText = (location: Location): string => {
-									switch (location) {
-										case 'igr-to-igr':
-											return 'von IGR für IGR';
-										case 'aula-to-igr':
-											return 'von Aula für IGR';
-										case 'igr-to-aula':
-											return 'von IGR für Aula';
-										case 'none':
-											return '/';
-									}
-								};
+										const getLocationText = (location: Location): string => {
+											switch (location) {
+												case 'igr-to-igr':
+													return 'von IGR für IGR';
+												case 'aula-to-igr':
+													return 'von Aula für IGR';
+												case 'igr-to-aula':
+													return 'von IGR für Aula';
+												case 'none':
+													return '/';
+											}
+										};
 
-								const renderSchedule = (
-									items: ScheduleItem[] | undefined,
-								) => {
-									if (!items || items.length === 0) return '';
+										const renderSchedule = (items: ScheduleItem[] | undefined) => {
+											if (!items || items.length === 0) return '';
 
-									return items.map((item) => (
-										<p class={item.note ? 'mb-2 last:mb-0' : ''}>
-											<span class={getLocationClass(item.location)}>
-												{getLocationText(item.location)}
-											</span>
-											{item.note && (
-												<span class="block text-xs text-text-tertiary">
-													{item.note}
-												</span>
-											)}
-										</p>
-									));
-								};
+											return items.map(item => (
+												<p class={item.note ? 'mb-2 last:mb-0' : ''}>
+													<span class={getLocationClass(item.location)}>
+														{getLocationText(item.location)}
+													</span>
+													{item.note && (
+														<span class="block text-xs text-text-tertiary">{item.note}</span>
+													)}
+												</p>
+											));
+										};
 
-								return (
-									<tr class={`
+										return (
+											<tr
+												class={`
 										border-b border-border-primary last:border-b-0
 										${index % 2 === 1 ? 'bg-bg-tertiary' : ''}
 										hover:bg-bg-hover transition-colors
-									`}>
-										<td class="px-4 py-3 font-medium text-text-primary whitespace-nowrap">
-											{lang}
-										</td>
-										{showMorning && (
-											<td class="px-4 py-3 text-text-secondary">
-												{renderSchedule(dateSchedule?.morning)}
-											</td>
-										)}
-										{showAfternoon && (
-											<td class="px-4 py-3 text-text-secondary">
-												{renderSchedule(dateSchedule?.afternoon)}
-											</td>
-										)}
-										{showEvening && (
-											<td class="px-4 py-3 text-text-secondary">
-												{renderSchedule(dateSchedule?.evening)}
-											</td>
-										)}
-									</tr>
-								);
-							})}
-						</tbody>
-					</table>
-				</div>
-			</section>
-			);
-		})}
+									`}
+											>
+												<td class="px-4 py-3 font-medium text-text-primary whitespace-nowrap">
+													{lang}
+												</td>
+												{showMorning && (
+													<td class="px-4 py-3 text-text-secondary">
+														{renderSchedule(dateSchedule?.morning)}
+													</td>
+												)}
+												{showAfternoon && (
+													<td class="px-4 py-3 text-text-secondary">
+														{renderSchedule(dateSchedule?.afternoon)}
+													</td>
+												)}
+												{showEvening && (
+													<td class="px-4 py-3 text-text-secondary">
+														{renderSchedule(dateSchedule?.evening)}
+													</td>
+												)}
+											</tr>
+										);
+									})}
+								</tbody>
+							</table>
+						</div>
+					</section>
+				);
+			})
+		}
 	</div>
 </Layout>
 
@@ -273,7 +275,7 @@ const schedules: Record<string, ScheduleData> = {
 	function enhanceDates(): void {
 		const sections = document.querySelectorAll('section[data-date]');
 
-		sections.forEach((section) => {
+		sections.forEach(section => {
 			const dateStr = section.getAttribute('data-date');
 			if (!dateStr) return;
 
