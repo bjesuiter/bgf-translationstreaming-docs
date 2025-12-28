@@ -231,7 +231,7 @@ const schedules: Record<string, ScheduleData> = {
 ---
 
 <Layout title={title} type="subpage">
-	<div class="space-y-8">
+	<div class="space-y-8 flex flex-col gap-12 items-stretch max-w-4xl mx-auto">
 		{
 			dates.map(date => {
 				// Determine which columns to show
@@ -240,7 +240,7 @@ const schedules: Record<string, ScheduleData> = {
 				const showEvening = date !== '2026-01-01';
 
 				return (
-					<section data-date={date} class="max-w-4xl mx-auto my-20">
+					<section data-date={date} class="">
 						<h2
 							class="text-xl font-semibold text-text-primary mb-4 pb-2 border-b border-border-primary flex items-center gap-3"
 							data-date={date}
