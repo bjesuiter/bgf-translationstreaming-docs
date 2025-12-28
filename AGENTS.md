@@ -99,3 +99,8 @@ const { title } = Astro.props;
 - If you should confirm something with playwright, try to open the URL directly WITHOUT starting the dev server!
 - If no URL is given, use `http://localhost:4321` as the default
 - If this fails with a 404 or "unable to connect", REPORT to the user! NEVER start the dev server yourself!
+
+## Updating the Streamplan
+
+If the user asks to update the streamplan, use the file `src/pages/streamplan-2025.astro`.
+DO ONLY UPDATE THE TIMESLOTS REQUESTED BY THE USER! => Do not think about adding defaults to other timeslots!
