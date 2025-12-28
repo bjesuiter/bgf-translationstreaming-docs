@@ -80,9 +80,7 @@
 
 	function getEffectiveTheme(theme: Theme): 'light' | 'dark' {
 		if (theme === 'system') {
-			return window.matchMedia('(prefers-color-scheme: dark)').matches
-				? 'dark'
-				: 'light';
+			return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 		}
 		return theme;
 	}
@@ -111,7 +109,7 @@
 		}
 
 		// Hide all icons, then show the current one
-		Object.values(icons).forEach((icon) => icon?.classList.add('hidden'));
+		Object.values(icons).forEach(icon => icon?.classList.add('hidden'));
 		icons[theme]?.classList.remove('hidden');
 	}
 
@@ -133,14 +131,12 @@
 		updateUI(theme);
 
 		// Listen for system theme changes when in system mode
-		window
-			.matchMedia('(prefers-color-scheme: dark)')
-			.addEventListener('change', () => {
-				const currentTheme = getThemePreference();
-				if (currentTheme === 'system') {
-					applyTheme('system');
-				}
-			});
+		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+			const currentTheme = getThemePreference();
+			if (currentTheme === 'system') {
+				applyTheme('system');
+			}
+		});
 
 		// Add click handler
 		const button = document.getElementById('theme-toggle');

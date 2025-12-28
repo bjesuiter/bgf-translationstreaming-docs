@@ -1,0 +1,22 @@
+name = "bgf-translationstreaming-docs"
+compatibility_date = "2025-01-01"
+
+# KV Namespaces
+# For production: Create namespaces in Cloudflare dashboard and replace IDs below
+# For local dev: Use wrangler kv namespace create --preview for each
+[[kv_namespaces]]
+binding = "STREAMPLAN_KV"
+id = "prod_kv_id" # Replace with actual production ID
+preview_id = "local_preview_id" # Replace with wrangler preview ID
+
+[[kv_namespaces]]
+binding = "SESSION"
+id = "session_prod_id" # Replace with actual production ID
+preview_id = "session_preview_id" # Replace with wrangler preview ID
+
+[vars]
+# Set these in Cloudflare dashboard or .dev.vars for local dev:
+# PIN_NORMAL = "1234"
+# PIN_MASTER = "5678"
+PIN_NORMAL = "1234"
+PIN_MASTER = "5678"

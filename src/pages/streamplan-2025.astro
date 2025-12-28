@@ -462,12 +462,9 @@ const schedules: Record<string, ScheduleData> = {
 			if (!dateSpan) return;
 
 			// Format the date nicely in German, using browser's timezone
-			const formattedDate = formatInTimeZone(
-				utcDate,
-				browserTimeZone,
-				'EEEE, d. MMMM yyyy',
-				{ locale: de },
-			);
+			const formattedDate = formatInTimeZone(utcDate, browserTimeZone, 'EEEE, d. MMMM yyyy', {
+				locale: de,
+			});
 
 			// Check if this is today (using browser's local timezone)
 			const isTodayDate = isToday(localDate);

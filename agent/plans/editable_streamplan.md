@@ -80,6 +80,40 @@ interface ScheduleItem {
 5. Create KV namespace in Cloudflare dashboard
 6. Add wrangler.toml for local dev
 
+### Manual Setup (After Phase 1, Before Phase 2)
+
+1. **Create KV namespaces** in Cloudflare dashboard:
+
+   ```bash
+   # Production namespaces
+   wrangler kv namespace create STREAMPLAN_KV
+   wrangler kv namespace create SESSION
+
+   # Preview namespaces
+   wrangler kv namespace create STREAMPLAN_KV --preview
+   wrangler kv namespace create SESSION --preview
+   ```
+
+2. **Update `wrangler.toml`** with the actual namespace IDs from the commands above:
+
+   ```toml
+   [[kv_namespaces]]
+   binding = "STREAMPLAN_KV"
+   id = "<actual-production-id>"
+   preview_id = "<actual-preview-id>"
+
+   [[kv_namespaces]]
+   binding = "SESSION"
+   id = "<session-production-id>"
+   preview_id = "<session-preview-id>"
+   ```
+
+3. **Configure production environment variables** in Cloudflare dashboard:
+   - Go to Cloudflare Pages → Settings → Environment Variables
+   - Add `PIN_NORMAL` (e.g., "1234")
+   - Add `PIN_MASTER` (e.g., "5678")
+   - Note: `.dev.vars` is already configured for local development
+
 ### Phase 2: API Routes
 
 1. `GET /api/streamplan`
