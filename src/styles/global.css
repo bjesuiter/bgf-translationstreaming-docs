@@ -46,7 +46,7 @@
 	--color-location-igr: var(--color-slate-400);
 	--color-location-aula: var(--color-green-600);
 	--color-location-igr-aula: var(--color-purple-600);
-	--color-location-aula-default: #d2b48c;
+	--color-location-aula-default: var(--color-green-600);
 
 	/* Keep slate-950 for dark mode */
 	--color-slate-950: #020617;
@@ -102,7 +102,7 @@
 	--color-location-igr: var(--color-slate-400);
 	--color-location-aula: var(--color-green-400);
 	--color-location-igr-aula: var(--color-purple-400);
-	--color-location-aula-default: #e6d4b8;
+	--color-location-aula-default: var(--color-green-400);
 }
 
 /* ============================================
@@ -125,6 +125,17 @@
 .location-aula-default {
 	color: var(--color-location-aula-default);
 	font-weight: bold;
+}
+
+/* ============================================
+   CURRENT TIMESLOT COLUMN HIGHLIGHTING
+   ============================================ */
+.current-timeslot-column {
+	background-color: var(--color-current-timeslot-bg) !important;
+}
+
+.dark .current-timeslot-column {
+	background-color: color-mix(in srgb, var(--color-amber-900) 20%, transparent) !important;
 }
 
 /* ============================================

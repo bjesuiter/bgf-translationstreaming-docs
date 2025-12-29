@@ -730,6 +730,21 @@ const schedules: Record<string, ScheduleData> = {
 				'inline-flex items-center ml-2 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide bg-current-timeslot-bg text-current-timeslot-text rounded-full';
 			badge.textContent = badgeText;
 			header.appendChild(badge);
+
+			// Add class to header for column highlighting
+			header.classList.add('current-timeslot-column');
+
+			// Add class to all cells in this column
+			const tbody = table.querySelector('tbody');
+			if (tbody) {
+				const rows = tbody.querySelectorAll('tr');
+				rows.forEach(row => {
+					const cells = row.querySelectorAll('td');
+					if (cells[headerIndex]) {
+						cells[headerIndex].classList.add('current-timeslot-column');
+					}
+				});
+			}
 		}
 	}
 
